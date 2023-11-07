@@ -12,6 +12,12 @@
 		8D4831B02AF94414002C8849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D4831AE2AF94414002C8849 /* Main.storyboard */; };
 		8D4831B22AF94416002C8849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D4831B12AF94416002C8849 /* Assets.xcassets */; };
 		8D4831B52AF94416002C8849 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D4831B32AF94416002C8849 /* LaunchScreen.storyboard */; };
+		8D88F14B2AF95B9F0055A14C /* ShapeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F14A2AF95B9F0055A14C /* ShapeGenerator.swift */; };
+		8D88F14D2AF95C5D0055A14C /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F14C2AF95C5D0055A14C /* Onboarding.swift */; };
+		8D88F14F2AF95CEA0055A14C /* ExportToSVG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F14E2AF95CEA0055A14C /* ExportToSVG.swift */; };
+		8D88F1512AF95D180055A14C /* IsometricGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F1502AF95D180055A14C /* IsometricGrid.swift */; };
+		8D88F1532AF95D490055A14C /* SVGColourConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F1522AF95D490055A14C /* SVGColourConverter.swift */; };
+		8D88F1552AF96EA20055A14C /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88F1542AF96EA20055A14C /* Screenshot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		8D4831B12AF94416002C8849 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D4831B42AF94416002C8849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D4831B62AF94416002C8849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D88F14A2AF95B9F0055A14C /* ShapeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeGenerator.swift; sourceTree = "<group>"; };
+		8D88F14C2AF95C5D0055A14C /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		8D88F14E2AF95CEA0055A14C /* ExportToSVG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportToSVG.swift; sourceTree = "<group>"; };
+		8D88F1502AF95D180055A14C /* IsometricGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsometricGrid.swift; sourceTree = "<group>"; };
+		8D88F1522AF95D490055A14C /* SVGColourConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGColourConverter.swift; sourceTree = "<group>"; };
+		8D88F1542AF96EA20055A14C /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,12 @@
 			children = (
 				8D4831AA2AF94414002C8849 /* AppDelegate.swift */,
 				8D4831AC2AF94414002C8849 /* ViewController.swift */,
+				8D88F14A2AF95B9F0055A14C /* ShapeGenerator.swift */,
+				8D88F14C2AF95C5D0055A14C /* Onboarding.swift */,
+				8D88F1542AF96EA20055A14C /* Screenshot.swift */,
+				8D88F14E2AF95CEA0055A14C /* ExportToSVG.swift */,
+				8D88F1522AF95D490055A14C /* SVGColourConverter.swift */,
+				8D88F1502AF95D180055A14C /* IsometricGrid.swift */,
 				8D4831AE2AF94414002C8849 /* Main.storyboard */,
 				8D4831B12AF94416002C8849 /* Assets.xcassets */,
 				8D4831B32AF94416002C8849 /* LaunchScreen.storyboard */,
@@ -136,7 +154,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D4831AD2AF94414002C8849 /* ViewController.swift in Sources */,
+				8D88F1552AF96EA20055A14C /* Screenshot.swift in Sources */,
+				8D88F14B2AF95B9F0055A14C /* ShapeGenerator.swift in Sources */,
 				8D4831AB2AF94414002C8849 /* AppDelegate.swift in Sources */,
+				8D88F14F2AF95CEA0055A14C /* ExportToSVG.swift in Sources */,
+				8D88F1532AF95D490055A14C /* SVGColourConverter.swift in Sources */,
+				8D88F14D2AF95C5D0055A14C /* Onboarding.swift in Sources */,
+				8D88F1512AF95D180055A14C /* IsometricGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
