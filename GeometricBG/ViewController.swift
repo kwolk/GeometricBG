@@ -47,9 +47,6 @@ class ViewController: UIViewController {
         mode()
         
         
-        let buttonTitle = NSLocalizedString("bear", comment: "The name of the animal")
-        print(buttonTitle)
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         view.addGestureRecognizer(tapGesture)
         
