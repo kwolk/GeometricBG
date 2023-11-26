@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GeometricBG
 //
-//  Created by 🐯 on 06/11/2023.
+//  Created by Samuel Corke on 06/11/2023.
 //  Copyright © 2023 CorkeProjects. All rights reserved.
 //
 
