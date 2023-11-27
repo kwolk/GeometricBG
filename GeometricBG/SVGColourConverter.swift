@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/// CONVERT RGB COLOURS TO SVG FORMATTING
+// HELPER : CONVERT RGB COLOURS TO SVG FORMATTING
 func toSVGString(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> String {
     
     // Ensure the values are within the valid range (0.0 to 1.0)
