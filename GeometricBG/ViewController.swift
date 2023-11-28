@@ -128,7 +128,7 @@ class ViewController: UIViewController {
         if motion == .motionShake { undoAction(isShake: true) }
     }
     
-    /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE ALL
+    /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE ALL (INCLUDING WIRE MESH)
     func undoAction(isShake: Bool) {
                 
         if !shapes.isEmpty && !isShake {
