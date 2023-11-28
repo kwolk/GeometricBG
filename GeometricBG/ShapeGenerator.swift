@@ -40,14 +40,17 @@ class ShapeGenerator: UIView {
         switch randomShapeType {
         case .circle:
             if let circleView = generateCircle(at: touchLocation, isFirstShape: firstTime) {
-                shapes.append(circleView)
+                //shapes.append(circleView)
                 addSubview(circleView)
             }
         case .hexagon:
-            if let hexagonView = generateHexagon(at: touchLocation, isFirstShape: firstTime) {
-                shapes.append(hexagonView)
+//            if let hexagonView = generateHexagon(at: touchLocation, isFirstShape: firstTime) {
+//                shapes.append(hexagonView)
+//                addSubview(hexagonView)
+            let hexagonView = generateHexagon(at: touchLocation, isFirstShape: firstTime)
+                //shapes.append(hexagonView)
                 addSubview(hexagonView)
-            }
+//            }
         }
     }
     
@@ -80,13 +83,91 @@ class ShapeGenerator: UIView {
                                           alpha : randomColourRGBA.alpha)
         
         // SVG : PATH DATA
-        svgPathStrings.append("<circle cx=\"\(positionX)\" cy=\"\(positionY)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
+        //svgPathStrings.append("<circle cx=\"\(positionX)\" cy=\"\(positionY)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
+        svgPathStrings.append("<circle cx=\"\(positionX + radius)\" cy=\"\(positionY + radius)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
+        //shapes.append(shapeView)
         
         return shapeView
     }
     
     // HEXAGON
-    private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+//    private func generateHexagon2(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+//
+//        var positionX: CGFloat = 0
+//        var positionY: CGFloat = 0
+//
+//        if isFirstShape == true {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
+//            positionX = touchLocation.x
+//            positionY = touchLocation.y
+//        } else {
+//            positionX = CGFloat.random(in: touchLocation.x - 200...touchLocation.x + 200)
+//            positionY = CGFloat.random(in: touchLocation.y - 200...touchLocation.y + 200)
+//        }
+//
+//        let randomLength = CGFloat.random(in: 50...100)
+//        let randomColour = getRandomColor(withProbabilities: colorProbabilities)
+//
+//        let hexagonPath = UIBezierPath()
+//        var svgPathData = "M" // SVG : PATH DATA (START)
+//
+//        let sideLength: CGFloat = randomLength
+//        let rotationOffset: CGFloat = CGFloat.pi / 6.0
+//
+//        for i in 0..<6 {
+//            let angle = rotationOffset + CGFloat(i) * (CGFloat.pi / 3.0)
+//            let pointX = positionX + sideLength * cos(angle)
+//            let pointY = positionY + sideLength * sin(angle)
+//
+//            if i == 0 {
+//                hexagonPath.move(to: CGPoint(x: pointX, y: pointY))
+//                svgPathData += " \(pointX) \(pointY)" // SVG : POSITIONING DATA
+//            } else {
+//                hexagonPath.addLine(to: CGPoint(x: pointX, y: pointY))
+//                svgPathData += " \(pointX) \(pointY)" // SVG : POSITIONING DATA
+//            }
+//        }
+//
+//        hexagonPath.close()
+//
+//        let shapeLayer = CAShapeLayer()
+//        shapeLayer.path = hexagonPath.cgPath
+//        shapeLayer.fillColor = randomColour.cgColor
+//        shapeLayer.cornerRadius = 10.0  // FIXME: CANNOT ROUND CORNERS (MUST APPY MASK)
+//
+//        let hexagonView = UIView(frame: hexagonPath.bounds)
+//
+//        if isFirstShape == true {   // WORKAROUND : ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
+//            hexagonView.frame = CGRect(x: (positionX / 6) / 6, y: (positionY / 6) / 6, width: randomLength * 2, height: randomLength * 2)
+//        } else {
+//            hexagonView.frame = CGRect(x: positionX, y: positionY, width: randomLength * 2, height: randomLength * 2)
+//        }
+//
+//        hexagonView.layer.addSublayer(shapeLayer)
+//
+//
+//        // SVG : COLOUR DATA
+//        let randomColourRGBA = getRGBAComponents(randomColour)
+//        let randomColourSVG = toSVGString(red   : randomColourRGBA.red,
+//                                          green : randomColourRGBA.green,
+//                                          blue  : randomColourRGBA.blue,
+//                                          alpha : randomColourRGBA.alpha)
+//
+//        // SVG : PATH DATA (END)
+//        svgPathData += " Z"
+//        let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
+//
+//        svgPathStrings.append(pathElement)
+//
+//        return hexagonView
+//    }
+    
+    
+    
+    
+    
+    //private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+    private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView {
+    //func createHexagonView(rect: CGRect, rotationOffset: CGFloat = 0.0, cornerRadius: CGFloat = 10.0, lineWidth: CGFloat = 2.0, sides: Int = 6) -> UIView {
         
         var positionX: CGFloat = 0
         var positionY: CGFloat = 0
@@ -99,43 +180,54 @@ class ShapeGenerator: UIView {
             positionY = CGFloat.random(in: touchLocation.y - 200...touchLocation.y + 200)
         }
         
-        let randomLength = CGFloat.random(in: 50...100)
+        
+        let randomLength = CGFloat.random(in: 100...150)
         let randomColour = getRandomColor(withProbabilities: colorProbabilities)
         
-        let hexagonPath = UIBezierPath()
+        let rect = CGRect(x: positionX, y: positionY, width: randomLength, height: randomLength)
+        let cornerRadius: CGFloat = 10.0
+        var angle = CGFloat(0.5) // ROTATE 90º
+        let sides = 6
+                
+        let path = UIBezierPath()
         var svgPathData = "M" // SVG : PATH DATA (START)
         
-        let sideLength: CGFloat = randomLength
-        let rotationOffset: CGFloat = CGFloat.pi / 6.0
+        let theta: CGFloat = CGFloat(2.0 * Double.pi) / CGFloat(sides)
+        //let offset: CGFloat = cornerRadius * tan(theta / 2.0)
+        //let width = CGFloat(rect.size.width, rect.size.height)
         
-        for i in 0..<6 {
-            let angle = rotationOffset + CGFloat(i) * (CGFloat.pi / 3.0)
-            let pointX = positionX + sideLength * cos(angle)
-            let pointY = positionY + sideLength * sin(angle)
-            
-            if i == 0 {
-                hexagonPath.move(to: CGPoint(x: pointX, y: pointY))
-                svgPathData += " \(pointX) \(pointY)" // SVG : POSITIONING DATA
-            } else {
-                hexagonPath.addLine(to: CGPoint(x: pointX, y: pointY))
-                svgPathData += " \(pointX) \(pointY)" // SVG : POSITIONING DATA
-            }
+        let center = CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.width / 2.0)
+        let radius = (rect.width + cornerRadius - (cos(theta) * cornerRadius)) / 2.0
+        
+        let corner = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle), y: center.y + (radius - cornerRadius) * sin(angle))
+        path.move(to: CGPoint(x: corner.x + cornerRadius * cos(angle + theta), y: corner.y + cornerRadius * sin(angle + theta)))
+        //svgPathData += " \(center.x) \(center.y)" // SVG : POSITIONING DATA
+        svgPathData += " \(corner.x) \(corner.y)" // Use corner coordinates
+
+        
+        for _ in 0..<sides {
+            angle += theta
+            let corner = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle), y: center.y + (radius - cornerRadius) * sin(angle))
+            let tip = CGPoint(x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))
+            let start = CGPoint(x: corner.x + cornerRadius * cos(angle - theta), y: corner.y + cornerRadius * sin(angle - theta))
+            let end = CGPoint(x: corner.x + cornerRadius * cos(angle + theta), y: corner.y + cornerRadius * sin(angle + theta))
+
+            path.addLine(to: start)
+            path.addQuadCurve(to: end, controlPoint: tip)
+            svgPathData += " \(corner.x) \(corner.y)" // Use corner coordinates
         }
         
-        hexagonPath.close()
-        
+        path.close()
+
+        let bounds = path.bounds
+        let transform = CGAffineTransform(translationX: -bounds.origin.x + rect.origin.x / 2.0, y: -bounds.origin.y + rect.origin.y / 2.0)
+        path.apply(transform)
+
+        // Create a UIView with CAShapeLayer
+        let hexagonView = UIView(frame: rect)
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = hexagonPath.cgPath
+        shapeLayer.path = path.cgPath
         shapeLayer.fillColor = randomColour.cgColor
-        shapeLayer.cornerRadius = 10.0  // FIXME: CANNOT ROUND CORNERS (MUST APPY MASK)
-        
-        let hexagonView = UIView(frame: hexagonPath.bounds)
-        
-        if isFirstShape == true {   // WORKAROUND : ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
-            hexagonView.frame = CGRect(x: (positionX / 6) / 6, y: (positionY / 6) / 6, width: randomLength * 2, height: randomLength * 2)
-        } else {
-            hexagonView.frame = CGRect(x: positionX, y: positionY, width: randomLength * 2, height: randomLength * 2)
-        }
         
         hexagonView.layer.addSublayer(shapeLayer)
         
@@ -146,15 +238,17 @@ class ShapeGenerator: UIView {
                                           green : randomColourRGBA.green,
                                           blue  : randomColourRGBA.blue,
                                           alpha : randomColourRGBA.alpha)
-        
+
         // SVG : PATH DATA (END)
         svgPathData += " Z"
         let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
-        
+
         svgPathStrings.append(pathElement)
+        //shapes.append(hexagonView)
         
         return hexagonView
     }
+
     
     
     func getRandomShape() -> ShapeType {

@@ -83,17 +83,16 @@ class ViewController: UIViewController {
         currentLoopNum = randomNumber
         var count = 0
         
-        for _ in 0...randomNumber {
+        for _ in 0..<randomNumber {
             if count == 0 {
                 generateShape(atLocation: location, first: true, on: view)
                 count += 1
                 
             } else if count > 0 {
                 generateShape(atLocation: location, on: view)
-                
-                if count == randomNumber { count = 0 }  // RESET COUNTER
             }
         }
+        if count == randomNumber { count = 0 }  // RESET COUNTER
     }
     
     @objc func longPress(_ sender: UILongPressGestureRecognizer) {
@@ -106,7 +105,7 @@ class ViewController: UIViewController {
                     }
                 })
             }
-            //exportToSVG(withWidth: self.view.bounds.width, withHeight: self.view.bounds.height)
+            exportToSVG(withWidth: self.view.bounds.width, withHeight: self.view.bounds.height)
         }
     }
     
@@ -129,22 +128,22 @@ class ViewController: UIViewController {
         if motion == .motionShake { undoAction(isShake: true) }
     }
     
-    /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE TOTAL NUMBER LAST COMITTED
+    /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE ALL
     func undoAction(isShake: Bool) {
-        
-        if !shapes.isEmpty && isShake == false {
+                
+        if !shapes.isEmpty && !isShake {
             let shape = shapes.popLast()
             shape?.removeFromSuperview()
             if !svgPathStrings.isEmpty {
                 svgPathStrings.removeLast()
             }
-        } else if !shapes.isEmpty && isShake == true {
+        } else if !shapes.isEmpty && isShake {
             for _ in 0...currentLoopNum {
                 if !shapes.isEmpty {
-                    let shape = shapes.popLast()
-                    shape?.removeFromSuperview()
+                    for shape in shapes { shape.removeFromSuperview() } // COMPLETELY PURGE ALL SHAPES FROM VIEW
+                    shapes.removeAll()
                     if !svgPathStrings.isEmpty {
-                        svgPathStrings.removeLast()
+                        svgPathStrings.removeAll()
                     }
                 }
             }
