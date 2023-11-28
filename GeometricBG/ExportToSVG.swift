@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-// FIXME: AS viewBoxWidth IS THE SAME AS viewWidth THEN IS CAN BE OMITTED AND ANY minX/Y VALUES DO NOT APPLY. BUT THE EXPORTED SVG DOES NOT MIMIC THAT ON SCREEN ?!
+// FIXME: HEXAGONS NOT ALIGNING PROPERLY
 func exportToSVG(withWidth viewWidth: CGFloat, withHeight viewHeight: CGFloat) {
     
     var svgData = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"

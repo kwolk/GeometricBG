@@ -162,12 +162,9 @@ class ShapeGenerator: UIView {
 //    }
     
     
-    
-    
-    
-    //private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+    // HEXAGON
+    // h/t: Hitexa Kakadiya : https://stackoverflow.com/questions/72367918/create-hexagon-design-using-uibezierpath-in-swift-ios
     private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView {
-    //func createHexagonView(rect: CGRect, rotationOffset: CGFloat = 0.0, cornerRadius: CGFloat = 10.0, lineWidth: CGFloat = 2.0, sides: Int = 6) -> UIView {
         
         var positionX: CGFloat = 0
         var positionY: CGFloat = 0
@@ -244,7 +241,6 @@ class ShapeGenerator: UIView {
         let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
 
         svgPathStrings.append(pathElement)
-        //shapes.append(hexagonView)
         
         return hexagonView
     }
