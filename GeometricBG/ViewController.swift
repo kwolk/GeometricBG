@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     }
     
     @objc func longPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
+        if sender.state == .began && !shapes.isEmpty {  // CANVAS IS NOT BLANK
             if PHPhotoLibrary.authorizationStatus() == .authorized {
                 PHPhotoLibrary.requestAuthorization({ (status) in
                     if status == .authorized {
