@@ -232,3 +232,6 @@ Unfortunately there is no way to do so silently, so an alert will display notify
 ![icon - dark (mode)](https://github.com/kwolk/GeometricBG/assets/114968/51a4245a-8b53-4f4e-8f41-0cfaa06928b9)
 
 _it will automatically trigger when the user opens the app_
+
+
+_I really had a nice time writing this to the backing music of "The Chronicles of Narnia - Aslan's Camp Ambience & ASMR" (watch?v=3A1a6mKmXGE)_
