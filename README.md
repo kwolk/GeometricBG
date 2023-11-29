@@ -36,7 +36,7 @@ _the colours just popped !_
 ```swift
 private let shapeProbabilities: [(ShapeType, Int)] = [(ShapeType.circle, 2), (ShapeType.hexagon, 1)]
 ```
-It was clear form the Page's work that he favoured circular shapes over hexagons, so they appear at a 2:1 ratio.
+It was clear form Page's work that he favoured circular shapes over hexagons, so they appear at a 2:1 ratio.
 
 ```swift
 let totalWeight = shapeProbabilities.reduce(0) { $0 + $1.1 }
@@ -49,7 +49,7 @@ let totalWeight = shapeProbabilities.reduce(0) { $0 + $1.1 }
                 
                 return shape
 ```
-Not satisfied with the true randomness of just probabilities alone, the Dictionary was mapped for randomness, which does a fair job for just a tap of the screen.
+Not satisfied with the true randomness of just probabilities alone, the Dictionary was mapped for randomness, which does a fair job for just a tap of the screen (choosing colours is also reliant on the map method).
 _choosing colours is also reliant on the map method_
 
 
@@ -57,7 +57,7 @@ _choosing colours is also reliant on the map method_
 #### SVG ####
 Of course, the main output of the app was to be a vector graphic, which I could scale to any device that I had and on any platform (perhaps, one day, even wallpaper in my bedroom..).
 
-For such a structured format, XML in Xcode was a little alchemic like (like Localisation), landing me in trouble knowing when to append the data for the hexagon shape, as it is constructed of six different shapes, unlike the circle which can immediately be committed:
+For such a structured format, XML in Xcode was a little alchemic like (as I found with Apple’s implementation of Localisation), landing me in trouble knowing when to append the data for the hexagon shape, as it is constructed of six different shapes, unlike the circle which can immediately be committed:
 
 ```swift
 svgPathStrings.append("<circle cx=\"\(positionX + radius)\" cy=\"\(positionY + radius)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
@@ -66,7 +66,7 @@ Adding the code above at the end of creating a UIView circle (from a rectangle, 
 ```XML
 <circle cx="119.83806410518639" cy="148.3380641051864" r="64.16193589481361" fill="rgba(253, 138, 90, 0.48)" />
 ```
-However, the process of a more complicated six sided shape demanded that the intersecting lines of a hexagon be added from start to finish, starting with an "M", followed by the co-ordinate data and finalised with a "z" and the colour data:
+However, the process of a more complicated six sided shape demanded that the intersecting lines of a hexagon be added from start to finish, starting with an "M", followed by the co-ordinate data and finalised with a “Z” and the colour data:
 
 ```swift
 var svgPathData = "M"
@@ -78,7 +78,7 @@ svgPathData += " \(corner.x) \(corner.y)"
 svgPathData += " Z"
 let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
 ```
-Even still, the troubles remain, with the rounded corners of the hexagon not faithfully mirrored in the SVG output data and their locations ill-positioned:
+Even still, the troubles remain, with the rounded corners of the hexagon not faithfully mirrored in the SVG output data (1) and their locations ill-positioned (2):
 
 ![app](https://github.com/kwolk/GeometricBG/assets/114968/9daa5cd4-1345-499f-838c-7ae4108d89e6)
 ![svg](https://github.com/kwolk/GeometricBG/assets/114968/25e4d00b-ebf5-45a1-b548-7e400217d994)
@@ -101,9 +101,9 @@ Converting from RGB (UIKit) to string output suitable for XML (SVG) formatting n
 ```
 
 #### ONBOARDING ####
-Although the few gestures controls would give instant visual feedback, the clarity of an upfront demonstration would hopefully be tolerated so long as it was fun to play along. I had to break the DRY rule and duplicate a lot of existing functionality into a separate ViewController after conflicting issues, but this allowed for a tailored experience where I could isolate specific functionality to ensure the directions on screen were rewarded with direct compliance and not guesswork.
+Although the few gesture controls would give instant visual feedback for those in a hurry, the clarity of an upfront demonstration would hopefully be tolerated so long as it was fun to play along. I had to break the DRY rule and duplicate a lot of existing functionality into a separate ViewController after conflicting issues, but this allowed for a tailored experience where I could isolate specific functionality to ensure the directions on-screen were rewarded with direct compliance and not just guesswork.
 
-Employing the User Defaults class, a strict state machine logic driven system to e.g. prevent any gestures but the one directed on screen, along with being mindful of working on the main thread (DispatchQueue) to prevent memory leaks, I ended up with a slick process that would not only get permission requests out of the way, but also teach the user everything they needed to know:
+Remaining on the main thread (DispatchQueue) ensured a slick experience to zip through Permission requests (PHPhotoLibrary.authorizationStatus), ensuring the user learns through action by jumping through walled-off logic:
 
 Onboarding restrictions : 
            <details>
@@ -127,7 +127,7 @@ Onboarding restrictions :
            ![6](https://github.com/kwolk/GeometricBG/assets/114968/ecfe402d-b789-4e8b-b5bb-13347728c67e)
            </details>
 
-Respecting user's global settings the app switches to Dark Mode if that is set (and visa-versa). However, I had to invert the option during Onboarding of course, which added complexity:
+Respecting the user's global Mode settings the app switches to mimic the colour profile, which required inversion during Onboarding, adding complexity:
 ```swift
     // NORMAL FUNCTIONALITY TO MIMIC USER MODE SETTINGS
     if self.traitCollection.userInterfaceStyle == .light && !inverted {
@@ -154,7 +154,7 @@ Respecting user's global settings the app switches to Dark Mode if that is set (
           UIApplication.shared.setAlternateIconName(nil)  // RESET TO DEFAULT (LIGHT)
           UserDefaults.standard.set(true, forKey: "IconLight")
 ```
-After several revisions, the Onboarding syste is highly capable. However, I intend to develop an interactive system flexible enough to re-use...
+After several revisions, the Onboarding system is highly capable. However, I intend to develop an interactive system flexible enough to re-use...
 
 #### LOCALISATION ####
 
@@ -218,11 +218,11 @@ let context = UIGraphicsGetCurrentContext()
                                              y: y + rectHeight))
                 context?.strokePath()
 ```
-Given the nature of input (a blunt instrument i.e. a finger) I felt that the cartoonish proportions fit the medium and likely client base well. Anything else and it would have been a direct copy, rather than an exercise is deconstruction.
+Given the nature of input (a blunt instrument i.e. a finger) I felt that the cartoonish proportions fit the medium. Anything else and it would have been a direct copy, rather than an exercise is deconstruction.
 
 #### EASTER EGG #2 ####
 
-My misspent computing years heavily involved customising application icons and so I absolutely wanted to find a reason to do it here.
+My misspent early computing years heavily involved customising application icons (remember when we used to call them “applications”, or even “programs”) and so I absolutely wanted to find a reason to do it here.
 
 Unfortunately, there is no way to do so silently. An alert must display notifying the user of the change, which occurs if the app is opened in a different global state to that of which it was last i.e. from Light to Dark mode:
 
