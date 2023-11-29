@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     // HIDE TITLE BAR
     override var prefersStatusBarHidden: Bool { return true }
     
-    
     // ONBOARDING VC BEFORE NORMAL LOADING (AVOID CONFLICT)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -46,7 +45,7 @@ class ViewController: UIViewController {
         
         mode()
         
-        
+        // *.GESTURES
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         view.addGestureRecognizer(tapGesture)
         
@@ -70,11 +69,47 @@ class ViewController: UIViewController {
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
     }
-
+        
+    // GESTURE : TAP
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let touchLocation = gesture.location(in: view)
         
         drawShape(at: touchLocation)
+    }
+    
+    // GESTURE : PRESS
+    @objc func longPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began && !shapes.isEmpty {  // CANVAS IS NOT BLANK
+            if PHPhotoLibrary.authorizationStatus() == .authorized {
+                PHPhotoLibrary.requestAuthorization({ (status) in
+                    if status == .authorized {
+                        takeScreenshot()
+                        self.cameraFlash()
+                    }
+                })
+            }
+            //exportToSVG(withWidth: self.view.bounds.width, withHeight: self.view.bounds.height)
+        }
+    }
+    
+    // GESTURE : SWIPE
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizer.Direction.up      : isometricOverlay()
+            case UISwipeGestureRecognizer.Direction.down    : undoAction(isShake: false)
+            case UISwipeGestureRecognizer.Direction.left    : mode(inverted: true)
+            case UISwipeGestureRecognizer.Direction.right   : mode()
+            default : break
+            }
+        }
+    }
+    
+    // GESTURE : SHAKE
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        
+        if motion == .motionShake { undoAction(isShake: true) }
     }
     
     private func drawShape(at location: CGPoint) {
@@ -93,39 +128,6 @@ class ViewController: UIViewController {
             }
         }
         if count == randomNumber { count = 0 }  // RESET COUNTER
-    }
-    
-    @objc func longPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began && !shapes.isEmpty {  // CANVAS IS NOT BLANK
-            if PHPhotoLibrary.authorizationStatus() == .authorized {
-                PHPhotoLibrary.requestAuthorization({ (status) in
-                    if status == .authorized {
-                        takeScreenshot()
-                        self.cameraFlash()
-                    }
-                })
-            }
-            exportToSVG(withWidth: self.view.bounds.width, withHeight: self.view.bounds.height)
-        }
-    }
-    
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizer.Direction.up      : isometricOverlay()
-            case UISwipeGestureRecognizer.Direction.down    : undoAction(isShake: false)
-            case UISwipeGestureRecognizer.Direction.left    : mode(inverted: true)
-            case UISwipeGestureRecognizer.Direction.right   : mode()
-            default : break
-            }
-        }
-    }
-    
-    // SHAKE MOTION
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        
-        if motion == .motionShake { undoAction(isShake: true) }
     }
     
     /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE ALL (INCLUDING WIRE MESH)
@@ -179,7 +181,7 @@ class ViewController: UIViewController {
         shapes.append(shape)
     }
     
-    // WORAROUND : KEEP SWIPING UPWARD TO MAKE THE LINES MORE VIVID (EASTER EGG FEATURE)
+    // EASTER EGG : KEEP SWIPING UPWARD TO MAKE THE LINES MORE VIVID
     func isometricOverlay() {
         
         let isometricGridView = IsometricGrid()
