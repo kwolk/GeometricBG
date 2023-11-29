@@ -1,8 +1,8 @@
 # GeometricBG
 Randomly place colourful circles and hexagons to create a pleasing wallpaper.
 
-#### WHY ####
-My inspiration for this came from the artist Simon C. Page's illustration (found, down the rabbit hole known as Pintrest), which instantly appealed to me, given my own artistic background. However, I always find Pintrest images to be far too miniscule, so I wanted to recreate this with vectors in order to scale it to any sized device.
+#### WHY ? ####
+My inspiration for this came from the artist Simon C. Page's illustration (found, down the rabbit hole known as Pintrest), which instantly appealed to me, given my own artistic background. However, I always find Pintrest's images to be far too miniscule, so I wanted to recreate this with vectors in order to scale it to any sized device.
 
 Rather than commit to learning a new software suite, only to recreate an imitation, I thought about how easily something similar could be achieved with a touch device like an iPhone, thus allowing anybody to create their own unique version.
 
