@@ -11,10 +11,8 @@ import UIKit
 
 
 enum ShapeType {
-    case circle
-    case hexagon
+    case circle, hexagon
 }
-
 
 
 class ShapeGenerator: UIView {
@@ -268,7 +266,6 @@ class ShapeGenerator: UIView {
                 return shape
             }
         }
-        
         return ShapeType.circle
     }
     
