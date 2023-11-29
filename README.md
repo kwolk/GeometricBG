@@ -55,7 +55,7 @@ Not satisfied with the randomness of just probabilities alone, the Dictionary wa
 #### SVG ####
 Of course, the main output of the app was to be a vector graphic, which I could scale to any device that I had and on any platform (perhaps, one day, even wallpaper in my bedroom..).
 
-For such a structured format, XML in Xcode was alchemic-like (as I also found with Apple’s implementation of Localisation), landing me in trouble for deciding when to append the data of the hexagon's component shapes, as it is constructed of six different pieces, unlike the circle shape, which can immediately be committed after creation:
+For such a structured format, XML in Xcode was alchemic-like (as I also found with Apple’s implementation of Localisation), landing me in trouble for deciding when to append the data of the hexagon's component shapes, as it is constructed of six different pieces, unlike the circle shape, which could immediately be committed after creation:
 
 ```swift
 svgPathStrings.append("<circle cx=\"\(positionX + radius)\" cy=\"\(positionY + radius)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
