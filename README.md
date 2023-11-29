@@ -49,7 +49,7 @@ let totalWeight = shapeProbabilities.reduce(0) { $0 + $1.1 }
                 
                 return shape
 ```
-Not satisfied with the true randomness of just probabilities alone, the Dictionary was Mapped for randomness, which does a fair job for just a tap of the screen (choosing colours is also reliant on the map method).
+Not satisfied with the randomness of just probabilities alone, the Dictionary was Mapped for randomness, which does a fair job for just a tap of the screen (choosing colours is also reliant on the map method).
 
 
 #### SVG ####
