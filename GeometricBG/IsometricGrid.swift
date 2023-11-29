@@ -11,6 +11,7 @@ import UIKit
 import CoreGraphics
 
 
+// EASTER EGG : HIDDEN FEATURE (SWIPE UP) TO OVERLAY GEOMETRIC MESH (AS WITH PAGE'S ORIGINAL ILLUSTRATION)
 class IsometricGrid: UIView {
     
     override func draw(_ rect: CGRect) {
