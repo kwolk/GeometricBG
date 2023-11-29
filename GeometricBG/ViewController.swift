@@ -130,7 +130,7 @@ class ViewController: UIViewController {
     
     /// REMOVING SHAPES INDIVIDUALLY WITH A SWIPE DOWN OR SHAKE TO REMOVE ALL (INCLUDING WIRE MESH)
     func undoAction(isShake: Bool) {
-                
+
         if !shapes.isEmpty && !isShake {
             let shape = shapes.popLast()
             shape?.removeFromSuperview()

@@ -32,30 +32,19 @@ class ShapeGenerator: UIView {
     private let shapeProbabilities: [(ShapeType, Int)] = [(ShapeType.circle, 2), (ShapeType.hexagon, 1)]
     
     
-    
+    // ENTRYPOINT TO CROSSROADS FOR SHAPE CREATION (RANDOM CHOICE BASED ON PROBABILITIES)
     func generateRandomShape(at touchLocation: CGPoint, firstTime: Bool) {
         
         let randomShapeType = getRandomShape()
         
         switch randomShapeType {
-        case .circle:
-            if let circleView = generateCircle(at: touchLocation, isFirstShape: firstTime) {
-                //shapes.append(circleView)
-                addSubview(circleView)
-            }
-        case .hexagon:
-//            if let hexagonView = generateHexagon(at: touchLocation, isFirstShape: firstTime) {
-//                shapes.append(hexagonView)
-//                addSubview(hexagonView)
-            let hexagonView = generateHexagon(at: touchLocation, isFirstShape: firstTime)
-                //shapes.append(hexagonView)
-                addSubview(hexagonView)
-//            }
+        case .circle    : generateCircle(at: touchLocation, isFirstShape: firstTime)
+        case .hexagon   : generateHexagon(at: touchLocation, isFirstShape: firstTime)
         }
     }
     
     // CIRCLE
-    private func generateCircle(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+    private func generateCircle(at touchLocation: CGPoint, isFirstShape: Bool) {
         
         var positionX: CGFloat = 0
         var positionY: CGFloat = 0
@@ -71,9 +60,9 @@ class ShapeGenerator: UIView {
             positionY = CGFloat.random(in: touchLocation.y - 200...touchLocation.y + 200)
         }
         
-        let shapeView = UIView(frame: CGRect(x: positionX, y: positionY, width: radius * 2, height: radius * 2))
-        shapeView.layer.cornerRadius = radius
-        shapeView.backgroundColor = randomColour
+        let shape = UIView(frame: CGRect(x: positionX, y: positionY, width: radius * 2, height: radius * 2))
+        shape.layer.cornerRadius = radius
+        shape.backgroundColor = randomColour
         
         // SVG : COLOUR DATA
         let randomColourRGBA = getRGBAComponents(randomColour)
@@ -83,15 +72,14 @@ class ShapeGenerator: UIView {
                                           alpha : randomColourRGBA.alpha)
         
         // SVG : PATH DATA
-        //svgPathStrings.append("<circle cx=\"\(positionX)\" cy=\"\(positionY)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
         svgPathStrings.append("<circle cx=\"\(positionX + radius)\" cy=\"\(positionY + radius)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
-        //shapes.append(shapeView)
-        
-        return shapeView
+        addSubview(shape)
     }
     
-    // HEXAGON
-//    private func generateHexagon2(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
+    
+    
+    // HEXAGON (ORIGINAL CODE : HEXAGONS NOT ROUNDED)
+//    private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView? {
 //
 //        var positionX: CGFloat = 0
 //        var positionY: CGFloat = 0
@@ -132,7 +120,7 @@ class ShapeGenerator: UIView {
 //        let shapeLayer = CAShapeLayer()
 //        shapeLayer.path = hexagonPath.cgPath
 //        shapeLayer.fillColor = randomColour.cgColor
-//        shapeLayer.cornerRadius = 10.0  // FIXME: CANNOT ROUND CORNERS (MUST APPY MASK)
+//        shapeLayer.cornerRadius = 10.0  // FIXME : CANNOT ROUND CORNERS (MUST APPY MASK)
 //
 //        let hexagonView = UIView(frame: hexagonPath.bounds)
 //
@@ -164,7 +152,8 @@ class ShapeGenerator: UIView {
     
     // HEXAGON
     // h/t: Hitexa Kakadiya : https://stackoverflow.com/questions/72367918/create-hexagon-design-using-uibezierpath-in-swift-ios
-    private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) -> UIView {
+    // FIXME: SVG : HEXAGON CONRNERS NOT ROUNDED && NOT PLACING CORRECTLY IN SVG DATA (EXPORT)
+    private func generateHexagon(at touchLocation: CGPoint, isFirstShape: Bool) {
         
         var positionX: CGFloat = 0
         var positionY: CGFloat = 0
@@ -177,56 +166,76 @@ class ShapeGenerator: UIView {
             positionY = CGFloat.random(in: touchLocation.y - 200...touchLocation.y + 200)
         }
         
-        
-        let randomLength = CGFloat.random(in: 100...150)
-        let randomColour = getRandomColor(withProbabilities: colorProbabilities)
-        
-        let rect = CGRect(x: positionX, y: positionY, width: randomLength, height: randomLength)
-        let cornerRadius: CGFloat = 10.0
-        var angle = CGFloat(0.5) // ROTATE 90º
-        let sides = 6
-                
+        let randomLength: CGFloat   = CGFloat.random(in: 100...150)
+        let randomColour: UIColor   = getRandomColor(withProbabilities: colorProbabilities)
+        let rectangle   : CGRect    = CGRect(x: positionX, y: positionY, width: randomLength, height: randomLength)
+        let cornerRadius: CGFloat   = 10.0          // ROUNDING CORNER VALUE
+        var angle       : CGFloat   = CGFloat(0.5)  // ROTATE HEXAGON 90º
+        let sides       : Int       = 6
+
         let path = UIBezierPath()
+        
         var svgPathData = "M" // SVG : PATH DATA (START)
         
-        let theta: CGFloat = CGFloat(2.0 * Double.pi) / CGFloat(sides)
-        //let offset: CGFloat = cornerRadius * tan(theta / 2.0)
-        //let width = CGFloat(rect.size.width, rect.size.height)
+        let theta   : CGFloat = CGFloat(2.0 * Double.pi) / CGFloat(sides)
+        let radius  : CGFloat = (rectangle.width + cornerRadius - (cos(theta) * cornerRadius)) / 2.0
+        let center  : CGPoint = CGPoint(x: rectangle.origin.x + rectangle.width / 2.0,
+                                        y: rectangle.origin.y + rectangle.width / 2.0)
         
-        let center = CGPoint(x: rect.origin.x + rect.width / 2.0, y: rect.origin.y + rect.width / 2.0)
-        let radius = (rect.width + cornerRadius - (cos(theta) * cornerRadius)) / 2.0
+        // DETERMINE STARTING POINT FOR DRAWING ROUNDED CORNERS
+        let corner  : CGPoint = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle),
+                                        y: center.y + (radius - cornerRadius) * sin(angle))
         
-        let corner = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle), y: center.y + (radius - cornerRadius) * sin(angle))
-        path.move(to: CGPoint(x: corner.x + cornerRadius * cos(angle + theta), y: corner.y + cornerRadius * sin(angle + theta)))
-        //svgPathData += " \(center.x) \(center.y)" // SVG : POSITIONING DATA
-        svgPathData += " \(corner.x) \(corner.y)" // Use corner coordinates
+        // MOVE PATH TO NEW POSITION ACCOUNTING FOR THE ROUNDED CORNER ANGLE
+        path.move(to: CGPoint(x: corner.x + cornerRadius * cos(angle + theta),
+                              y: corner.y + cornerRadius * sin(angle + theta)))
+        
+        // SVG : POSITIONING DATA
+        svgPathData += " \(corner.x) \(corner.y)"
 
         
         for _ in 0..<sides {
+            
             angle += theta
-            let corner = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle), y: center.y + (radius - cornerRadius) * sin(angle))
-            let tip = CGPoint(x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))
-            let start = CGPoint(x: corner.x + cornerRadius * cos(angle - theta), y: corner.y + cornerRadius * sin(angle - theta))
-            let end = CGPoint(x: corner.x + cornerRadius * cos(angle + theta), y: corner.y + cornerRadius * sin(angle + theta))
+            
+            // POINT ON THE CIRCUMFERENCE OF THE CIRCLE : DETERMINED BY THE ANGLE
+            let corner  = CGPoint(x: center.x + (radius - cornerRadius) * cos(angle),
+                                  y: center.y + (radius - cornerRadius) * sin(angle))
+
+            // ONE OF SIX POINTS : DETERMINED BY RADIUS AND ANGLE
+            let tip     = CGPoint(x: center.x + radius * cos(angle),
+                                  y: center.y + radius * sin(angle))
+            
+            let start   = CGPoint(x: corner.x + cornerRadius * cos(angle - theta),
+                                  y: corner.y + cornerRadius * sin(angle - theta))
+            
+            let end     = CGPoint(x: corner.x + cornerRadius * cos(angle + theta),
+                                  y: corner.y + cornerRadius * sin(angle + theta))
 
             path.addLine(to: start)
+            
+            // CONTROL POINT : INFLUENCEA THE SHAPE / DIRECTION OF CURVE
             path.addQuadCurve(to: end, controlPoint: tip)
-            svgPathData += " \(corner.x) \(corner.y)" // Use corner coordinates
+            
+            svgPathData += " \(corner.x) \(corner.y)"   // SVG : POSITIONING DATA
         }
         
         path.close()
 
         let bounds = path.bounds
-        let transform = CGAffineTransform(translationX: -bounds.origin.x + rect.origin.x / 2.0, y: -bounds.origin.y + rect.origin.y / 2.0)
+        
+        // MOVE POINTS IN RELATION TO ORIGINAL RECTANGLE DATA
+        let transform = CGAffineTransform(translationX: -bounds.origin.x + rectangle.origin.x / 2.0,
+                                          y: -bounds.origin.y + rectangle.origin.y / 2.0)
         path.apply(transform)
 
-        // Create a UIView with CAShapeLayer
-        let hexagonView = UIView(frame: rect)
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
+        // CREATE UIView WITH CAShapeLayer
+        let hexagon      = UIView(frame: rectangle)
+        let shapeLayer       = CAShapeLayer()
+        shapeLayer.path      = path.cgPath
         shapeLayer.fillColor = randomColour.cgColor
         
-        hexagonView.layer.addSublayer(shapeLayer)
+        hexagon.layer.addSublayer(shapeLayer)
         
         
         // SVG : COLOUR DATA
@@ -241,13 +250,12 @@ class ShapeGenerator: UIView {
         let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
 
         svgPathStrings.append(pathElement)
-        
-        return hexagonView
+        addSubview(hexagon)
     }
 
     
-    
-    func getRandomShape() -> ShapeType {
+    // HELPER : USE PROBABILITY TO RANDOMLY SELECT SHAPE (CIRCLE || HEXAGON)
+    private func getRandomShape() -> ShapeType {
         
         let totalWeight = shapeProbabilities.reduce(0) { $0 + $1.1 }
         let randomValue = Int.random(in: 1...totalWeight)
@@ -264,6 +272,7 @@ class ShapeGenerator: UIView {
         return ShapeType.circle
     }
     
+    // HELPER : RANDOMLY CHOOSE COLOUR (BASED ON PROBABILITIES)
     private func getRandomColor(withProbabilities probabilities: [(UIColor, Int)]) -> UIColor {
         
         let totalWeight = probabilities.reduce(0) { $0 + $1.1 }
@@ -280,6 +289,7 @@ class ShapeGenerator: UIView {
         return UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)   // BLACK
     }
     
+    // HELPER : RGB DATA DEMISTIFYER
     private func getRGBAComponents(_ colour: UIColor) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         
         var red     : CGFloat = 0
