@@ -171,7 +171,12 @@ enum OnboardingLocalisation: String {
         NSLocalizedString(String(describing: Self.self) + "_\(rawValue)", comment: "")
     }
 ```
+All that however still leaves me wondering what went through Apple's mind when implcitly implementing String values for definitions:
 
+```swift
+"OnboardingLocalisation_onboarding3" = "swipe down to remove";
+"OnboardingLocalisation_onboarding3" = "desliza el dedo hacia abajo para eliminar";
+```
 
 
 #### EASTER EGG #1 ####
