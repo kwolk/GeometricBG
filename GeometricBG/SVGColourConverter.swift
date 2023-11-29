@@ -12,13 +12,13 @@ import UIKit
 // HELPER : CONVERT RGB COLOURS TO SVG FORMATTING
 func toSVGString(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> String {
     
-    // Ensure the values are within the valid range (0.0 to 1.0)
+    // VALUES MUST BE VALID (0.0 to 1.0)
     let redValue    = max(0.0, min(1.0, red))
     let greenValue  = max(0.0, min(1.0, green))
     let blueValue   = max(0.0, min(1.0, blue))
     let alphaValue  = max(0.0, min(1.0, alpha))
     
-    // Extrapolate SVG string formatting from the component data
+    // EXTRAPOLATE SVG STRING FORMATTING FROM COMPONENT DATA
     let redInt      = Int(redValue * 255)
     let greenInt    = Int(greenValue * 255)
     let blueInt     = Int(blueValue * 255)
