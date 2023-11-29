@@ -342,7 +342,7 @@ class Onboarding: UIViewController {
         onboardingShapes.append(shape)
     }
     
-    // TODO: I WOULD LIKE TO FADE OUT, BUT I CANNOT KNOW AT WHAT POINT THE FADE ANIMATION IS AT TO START THAT FADE FROM
+    // FIXME: I WOULD LIKE TO FADE OUT, BUT I CANNOT KNOW AT WHAT POINT THE FADE ANIMATION IS AT TO START THAT FADE FROM
     private func removeOnboardingLabel() {
         
         for label in onboardingText {
