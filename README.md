@@ -24,7 +24,7 @@ Yellow, being a bright colour, was the most frequent to my eye in Page's origina
 
 Varying the transparency maintained the blended approach from the original: however, this time allowing the darker shades to punch through up to 70%.
 
-It only dawned on me, after switching from an older (pre "Dark Mode") IDE, of the need for a "Dark Mode" on contemporary apps - something I had not considered from Page's work alone, given that it was fashioned on a white canvas. But, as soon as I saw the colour contrast, I knew that I had to retro-fit my codebase:
+It only dawned on me, after switching from an older (pre "Dark Mode") IDE, of the need for a Dark Mode on contemporary apps - something I had not considered from Page's work, given that it was fashioned on a white canvas. But, as soon as I saw the colour contrast, I knew that I had to retrofit my codebase:
 
 ![effortLight](https://github.com/kwolk/GeometricBG/assets/114968/85740053-c1de-4241-a455-2cdb40a33501)
 ![effortDark](https://github.com/kwolk/GeometricBG/assets/114968/14a2d6fa-bd90-4f27-8105-d10911f19fee)
