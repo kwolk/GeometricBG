@@ -6,11 +6,11 @@ Randomly place colourful circles and hexagons to create a pleasing wallpaper.
 #### WHY ####
 My inspiration for this came from the artist Simon C. Page's illustration (found, down the rabbit hole known as Pintrest), which instantly appealed to me, given my own artistic background. However, Pintrest images are always too small, so I wanted to recreate this in vector to scale it to any sized device.
 
-Rather than commit to learning a new software suite, only to recreate an immitation, I thought about how something similar could be achieved with a simple iPhone, thus allowing anybody to create their own unique version.
+Rather than commit to learning a new software suite, only to recreate an imitation, I thought about how something similar could be achieved with a simple iPhone, thus allowing anybody to create their own unique version.
 
 
 #### PROBABILITY ####
-Deconstructing the design I was able to settle on the two most common shapes (circle and hexagon) and just five colours. Rondomising a shape's size, spacing, colour application, transparency level, even down to which of the two shapes to choose, all came down to probabilities.
+Deconstructing the design I was able to settle on the two most common shapes (circle and hexagon) and just five colours. Randomising a shape's size, spacing, colour application, transparency level, even down to which of the two shapes to choose, all came down to probabilities.
 
 #### COLOUR ####
 ```swift
@@ -22,11 +22,11 @@ private let colorProbabilities: [(UIColor, Int)] = [
     (UIColor(red: 110/255,  green: 72/255,  blue: 131/255,  alpha: CGFloat.random(in: 0.1...0.7)), 1)   // PURPLE
 ]
 ```
-Yellow, being a bright colour, was the most frequent colour to my eye in Page's original illustration, so that occured more than any other (3), whilst the darker teal and purple appearing more sparingly (1).
+Yellow, being a bright colour, was the most frequent colour to my eye in Page's original illustration, so that occurred more than any other (3), whilst the darker teal and purple appearing more sparingly (1).
 
 The transparency also varied to maintain the blended layers of the original: this time allowing the darker shades to punch through up to 70%, when they decided to show up.
 
-After switching from an older (pre "Dark Mode") environment and onto a new one, it only dawned on me that there could be a dark mode for the app, which was something I had not considdered from Page's work, given that it was on a white canvas. But, when I saw the contrast, I knew that I had to retro-apply it into my mature codebase:
+After switching from an older (pre "Dark Mode") environment and onto a new one, it only dawned on me that there could be a dark mode for the app, which was something I had not considered from Page's work, given that it was on a white canvas. But, when I saw the contrast, I knew that I had to retro-apply it into my mature codebase:
 
 ![effortLight](https://github.com/kwolk/GeometricBG/assets/114968/85740053-c1de-4241-a455-2cdb40a33501)
 ![effortDark](https://github.com/kwolk/GeometricBG/assets/114968/14a2d6fa-bd90-4f27-8105-d10911f19fee)
@@ -59,7 +59,7 @@ _choosing colours is also reliant on the map method_
 #### SVG ####
 Of course, the main output of the app was to be a vector graphic, which I could scale to any device that I had and on any platform (perhaps ever wallpaper in my bedroom.. one day).
 
-For such a structured format, XML in Xcode was a little alchemic like (like localisation). Whilst and I had trouble kowing when to append the data for the 
+For such a structured format, XML in Xcode was a little alchemic like (like localisation). Whilst and I had trouble knowing when to append the data for the 
 
 ```swift
 svgPathStrings.append("<circle cx=\"\(positionX + radius)\" cy=\"\(positionY + radius)\" r=\"\(radius)\" fill=\"\(randomColourSVG)\" />\n")
@@ -103,7 +103,7 @@ Converting from RGB (UIKit) to string formatting output suitable for XML (SVG) f
 ```
 
 #### ONBOARDING ####
-Although visually easy to fathom, the clarity of an upfront demonstration would be tollerated so long as it was fun to play along with. I had to break the DRY rule and moved a lot of existing functionality into a separat ViewController after conflicting issues, but this allowed for a tailored experience where I could segregate specific functionality to ensure the directions on screen were rewarded with the next stage of advice.
+Although visually easy to fathom, the clarity of an upfront demonstration would be tolerated so long as it was fun to play along with. I had to break the DRY rule and moved a lot of existing functionality into a separate ViewController after conflicting issues, but this allowed for a tailored experience where I could segregate specific functionality to ensure the directions on screen were rewarded with the next stage of advice.
 
 Employing the User Defaults class, a strict state machine logic driven system to e.g. prevent any gestures by the one directed on screen, along with being mindful of working on the main thread (DispatchQueue) to prevent memory leaks.
 
@@ -160,7 +160,7 @@ Overall, after several revisions, the onboarding state machine I employ here is 
 
 #### LOCALISATION ####
 
-Much like SVG's implementation into Xcode, Localisation is a little bit of an oddity. To get it working best I found the Enumeration method from Mendy Barouk on Medium a valuable shortcut to avoide mistakes:
+Much like SVG's implementation into Xcode, Localisation is a little bit of an oddity. To get it working best I found the Enumeration method from Mendy Barouk on Medium a valuable shortcut to avoid mistakes:
 
 ```swift
 enum OnboardingLocalisation: String {
@@ -171,7 +171,7 @@ enum OnboardingLocalisation: String {
         NSLocalizedString(String(describing: Self.self) + "_\(rawValue)", comment: "")
     }
 ```
-All that however still leaves me wondering what went through Apple's mind when implcitly implementing String values for definitions:
+All that however still leaves me wondering what went through Apple's mind when implicitly implementing String values for definitions:
 
 ```swift
 "OnboardingLocalisation_onboarding3" = "swipe down to remove";
@@ -224,7 +224,7 @@ Given the nature of input (a blunt instrument) I felt that the cartoonish propor
 
 #### EASTER EGG #2 ####
 
-I always loved the idea of changing app icons, even before I knew that I could do it (a habbit back from the ald days, before security) and absolutely wanted to find a reason to do it.
+I always loved the idea of changing app icons, even before I knew that I could do it (a habit back from the ald days, before security) and absolutely wanted to find a reason to do it.
 
 Unfortunately there is no way to do so silently, so an alert will display notifying the user of the change, which occurs if the app is opened in a different global state to that of which it was last i.e. from Light to Dark mode:
 
