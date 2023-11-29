@@ -156,7 +156,9 @@ After several revisions, the Onboarding system is highly capable. However, I int
 
 #### LOCALISATION ####
 
-Much like SVG's implementation into Xcode, Localisation is a little bit of an oddity. Advice I found online from Mendy Barouk (via Medium) advocated an Enum with a return method as a valuable shortcut to avoid mistakes:
+Much like SVG's implementation into Xcode, Localisation is a little bit of an oddity. Advice I found online from [Mendy Barouk](https://medium.com/@mendibarouk/enhance-your-localized-capabilities-on-your-ios-applications-d3ba17138077) (via Medium) advocated an Enum with a return method as a valuable shortcut to avoid mistakes:
+
+
 
 ```swift
 enum OnboardingLocalisation: String {
