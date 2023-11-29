@@ -9,7 +9,7 @@
 import Foundation
 
 // CONVERT LOCALISED TEXT WITH SAFETY OF ENUM !
-// h/t: Mendy Barouk : https://medium.com/@mendibarouk/enhance-your-localized-capabilities-on-your-ios-applications-d3ba17138077
+// h/t: Andrii Halabuda : https://www.youtube.com/watch?v=_PBA20ZVk1A
 enum OnboardingLocalisation: String {
     
     case onboarding1, onboarding2, onboarding3, onboarding4, onboarding5a, onboarding5b, onboarding6a, onboarding6b, onboarding7
