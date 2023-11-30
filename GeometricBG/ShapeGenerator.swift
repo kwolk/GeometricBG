@@ -18,7 +18,7 @@ enum ShapeType {
 class ShapeGenerator: UIView {
     
     // DEFINE COLOURS && RESPECTIVE PROBABILITIES : THE HIGHER THE NUMBER THE GREATER THE PROBABILITY OF OCCURENCE
-    private let colorProbabilities: [(UIColor, Int)] = [
+    private let colourProbabilities: [(UIColor, Int)] = [
         (UIColor(red: 244/255,  green: 177/255, blue: 21/255,   alpha: CGFloat.random(in: 0.1...0.4)), 3),  // YELLOW
         (UIColor(red: 225/255,  green: 84/255,  blue: 115/255,  alpha: CGFloat.random(in: 0.1...0.7)), 2),  // RUBY
         (UIColor(red: 80/255,   green: 159/255, blue: 177/255,  alpha: CGFloat.random(in: 0.1...0.5)), 1),  // TEAL
@@ -48,7 +48,7 @@ class ShapeGenerator: UIView {
         var positionY: CGFloat = 0
         
         let radius = CGFloat.random(in: 50...130)
-        let randomColour = getRandomColor(withProbabilities: colorProbabilities)
+        let randomColour = getRandomColour(withProbabilities: colourProbabilities)
         
         if isFirstShape == true {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
             positionX = touchLocation.x - radius
@@ -91,7 +91,7 @@ class ShapeGenerator: UIView {
 //        }
 //
 //        let randomLength = CGFloat.random(in: 50...100)
-//        let randomColour = getRandomColor(withProbabilities: colorProbabilities)
+//        let randomColour = getRandomColour(withProbabilities: colourProbabilities)
 //
 //        let hexagonPath = UIBezierPath()
 //        var svgPathData = "M" // SVG : PATH DATA (START)
@@ -165,7 +165,7 @@ class ShapeGenerator: UIView {
         }
         
         let randomLength: CGFloat   = CGFloat.random(in: 100...150)
-        let randomColour: UIColor   = getRandomColor(withProbabilities: colorProbabilities)
+        let randomColour: UIColor   = getRandomColour(withProbabilities: colourProbabilities)
         let rectangle   : CGRect    = CGRect(x: positionX, y: positionY, width: randomLength, height: randomLength)
         let cornerRadius: CGFloat   = 10.0          // ROUNDING CORNER VALUE
         var angle       : CGFloat   = CGFloat(0.5)  // ROTATE HEXAGON 90º
@@ -212,7 +212,7 @@ class ShapeGenerator: UIView {
 
             path.addLine(to: start)
             
-            // CONTROL POINT : INFLUENCEA THE SHAPE / DIRECTION OF CURVE
+            // CONTROL POINT : INFLUENCE THE SHAPE / DIRECTION OF CURVE
             path.addQuadCurve(to: end, controlPoint: tip)
             
             svgPathData += " \(corner.x) \(corner.y)"   // SVG : POSITIONING DATA
@@ -228,7 +228,7 @@ class ShapeGenerator: UIView {
         path.apply(transform)
 
         // CREATE UIView WITH CAShapeLayer
-        let hexagon      = UIView(frame: rectangle)
+        let hexagon          = UIView(frame: rectangle)
         let shapeLayer       = CAShapeLayer()
         shapeLayer.path      = path.cgPath
         shapeLayer.fillColor = randomColour.cgColor
@@ -246,7 +246,6 @@ class ShapeGenerator: UIView {
         // SVG : PATH DATA (END)
         svgPathData += " Z"
         let pathElement = "<path d=\"\(svgPathData)\" fill=\"\(randomColourSVG)\" /> \n"
-
         svgPathStrings.append(pathElement)
         addSubview(hexagon)
     }
@@ -270,7 +269,7 @@ class ShapeGenerator: UIView {
     }
     
     // HELPER : RANDOMLY CHOOSE COLOUR (BASED ON PROBABILITIES)
-    private func getRandomColor(withProbabilities probabilities: [(UIColor, Int)]) -> UIColor {
+    private func getRandomColour(withProbabilities probabilities: [(UIColor, Int)]) -> UIColor {
         
         let totalWeight = probabilities.reduce(0) { $0 + $1.1 }
         let randomValue = Int.random(in: 1...totalWeight)
