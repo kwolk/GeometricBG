@@ -50,7 +50,7 @@ class ShapeGenerator: UIView {
         let radius = CGFloat.random(in: 50...130)
         let randomColour = getRandomColour(withProbabilities: colourProbabilities)
         
-        if isFirstShape == true {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
+        if isFirstShape {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
             positionX = touchLocation.x - radius
             positionY = touchLocation.y - radius
         } else {
@@ -156,7 +156,7 @@ class ShapeGenerator: UIView {
         var positionX: CGFloat = 0
         var positionY: CGFloat = 0
         
-        if isFirstShape == true {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
+        if isFirstShape {   // ENSURE USER SATISFACTION WITH ONE SHAPE PLACED WHERE FINGER TAPS
             positionX = touchLocation.x
             positionY = touchLocation.y
         } else {
