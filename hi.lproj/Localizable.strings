@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  GeometricBG
+
+  Created by Samuel Corke on 25/11/2023.
+  Copyright © 2023 CorkeProjects. All rights reserved.
+*/
+
+"OnboardingLocalisation_onboarding1"    = "दबाओ";
+"OnboardingLocalisation_onboarding2"    = "सहेजने के लिए दबाकर रखें";
+"OnboardingLocalisation_onboarding3"    = "हटाने के लिए नीचे स्वाइप करें";
+"OnboardingLocalisation_onboarding4"    = "सभी के लिए हिलाए";
+"OnboardingLocalisation_onboarding5a"   = "डार्क मोड के लिए स्वाइप करें";
+"OnboardingLocalisation_onboarding5b"   = "लाइट मोड के लिए स्वाइप करें";
+"OnboardingLocalisation_onboarding6a"   = "और प्रकाश के लिए वापस";
+"OnboardingLocalisation_onboarding6b"   = "और  अंधेरे के लिए वापस";
+"OnboardingLocalisation_onboarding7"    = "आनंद ले";
