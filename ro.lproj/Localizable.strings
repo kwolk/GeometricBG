@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  GeometricBG
+
+  Created by Samuel Corke on 25/11/2023.
+  Copyright © 2023 CorkeProjects. All rights reserved.
+*/
+
+"OnboardingLocalisation_onboarding1"    = "atingeți";
+"OnboardingLocalisation_onboarding2"    = "apăsați și țineți pentru a salva";
+"OnboardingLocalisation_onboarding3"    = "glisați în jos pentru a elimina";
+"OnboardingLocalisation_onboarding4"    = "scutură-l pe tot";
+"OnboardingLocalisation_onboarding5a"   = "glisați pentru modul întunecat..";
+"OnboardingLocalisation_onboarding5b"   = "glisați pentru modul de lumină..";
+"OnboardingLocalisation_onboarding6a"   = "..și înapoi pentru lumină..";
+"OnboardingLocalisation_onboarding6b"   = "..și înapoi pentru întuneric..";
+"OnboardingLocalisation_onboarding7"    = "bucura-te";
