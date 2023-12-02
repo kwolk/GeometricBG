@@ -28,6 +28,8 @@
 		32C90A2A2B13B26200C1A6FF /* OnboardingLocalisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLocalisation.swift; sourceTree = "<group>"; };
 		32C90A2D2B13B6F900C1A6FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32C90A2F2B13B6F900C1A6FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		529740722B1BB5D60016A333 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		529740732B1BB93E0016A333 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D4831A72AF94414002C8849 /* GeometricBG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeometricBG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D4831AA2AF94414002C8849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D4831AC2AF94414002C8849 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,8 @@
 				en,
 				Base,
 				es,
+				ro,
+				hi,
 			);
 			mainGroup = 8D48319E2AF94414002C8849;
 			productRefGroup = 8D4831A82AF94414002C8849 /* Products */;
@@ -183,6 +187,8 @@
 			children = (
 				32AE92F32B11813400B12A2B /* en */,
 				32AE92F52B11814100B12A2B /* es */,
+				529740722B1BB5D60016A333 /* ro */,
+				529740732B1BB93E0016A333 /* hi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

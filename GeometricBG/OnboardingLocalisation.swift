@@ -9,6 +9,7 @@
 import Foundation
 
 // CONVERT LOCALISED TEXT WITH SAFETY OF ENUM !
+// ALL LOCALISATION FROM NATIVE SPEAKERS
 // h/t: Andrii Halabuda : https://www.youtube.com/watch?v=_PBA20ZVk1A
 enum OnboardingLocalisation: String {
     
