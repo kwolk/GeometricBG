@@ -188,6 +188,7 @@ class ViewController: UIViewController {
         isometricGridView.backgroundColor = .clear
         isometricGridView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         view.bringSubviewToFront(isometricGridView)
+        shapes.append(isometricGridView)
         view.addSubview(isometricGridView)
     }
     
