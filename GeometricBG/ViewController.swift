@@ -134,18 +134,24 @@ class ViewController: UIViewController {
     func undoAction(isShake: Bool) {
 
         if !shapes.isEmpty && !isShake {
-            let shape = shapes.popLast()
-            shape?.removeFromSuperview()
+            if let shape = shapes.popLast() {
+                deleteAnimation(forSingle: true, shape: shape) {    // ENSURE ANIMATIONS COMPLETE W/@escaping CLOSURE
+                    shape.removeFromSuperview()
+                }
+            }
             if !svgPathStrings.isEmpty {
                 svgPathStrings.removeLast()
             }
         } else if !shapes.isEmpty && isShake {
             for _ in 0...currentLoopNum {
                 if !shapes.isEmpty {
-                    for shape in shapes { shape.removeFromSuperview() } // COMPLETELY PURGE ALL SHAPES FROM VIEW
-                    shapes.removeAll()
-                    if !svgPathStrings.isEmpty {
-                        svgPathStrings.removeAll()
+                    for shape in shapes {
+                        deleteAnimation(forSingle: false, shape: shape) {
+                            shape.removeFromSuperview() } // COMPLETELY PURGE ALL SHAPES FROM VIEW
+                            shapes.removeAll()
+                    }
+                        if !svgPathStrings.isEmpty {
+                            svgPathStrings.removeAll()
                     }
                 }
             }
@@ -238,4 +244,31 @@ class ViewController: UIViewController {
         }
     }
     
+    // REMOVE SHAPE WITH TRANSITION EFFECT
+    func deleteAnimation(forSingle sigleShape: Bool, shape: UIView, completion: @escaping () -> Void) {    // @escaping CLOSURE ALLOWS ANIMATIONS CONTINUE UNTIL COMPLETED
+                
+        UIView.animate(withDuration: 0.2, animations: {
+            shape.backgroundColor = .gray
+            shape.alpha = 0.2
+        })
+
+        // SINGLE SHAPE DROP DOWN (GESTURE : SWIPE DOWN)
+        if sigleShape {
+            UIView.animate(withDuration: 0.7, animations: {
+                shape.frame.origin.y = self.view.frame.height + shape.frame.width
+            }) { _ in
+                completion()
+            }
+        // MULTIPLE SHAPES EXPLODE (GESTURE : SHAKE)
+        } else {
+            // FIXME : EXPANSION FROM TOP LEFT OF VIEW, RATHER THAN CENTRE OF CIRCLEÇ
+            UIView.animate(withDuration: 0.7, animations: {
+                shape.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+            }) { _ in
+                completion()
+            }
+        }
+    }
+    
 }
+
