@@ -8,6 +8,8 @@
 
 import UIKit
 import Photos
+import AudioToolbox
+
 
 
 var svgPathStrings: [String] = []  // SHAPE DATA CONVERTED TO SVG FORMAT
@@ -135,6 +137,7 @@ class ViewController: UIViewController {
 
         if !shapes.isEmpty && !isShake {
             if let shape = shapes.popLast() {
+                AudioServicesPlaySystemSound(1104)  // FIXME : CHANGE TO SOMETHING MORE SUITABLE ?
                 deleteAnimation(forSingle: true, shape: shape) {    // ENSURE ANIMATIONS COMPLETE W/@escaping CLOSURE
                     shape.removeFromSuperview()
                 }
@@ -261,7 +264,7 @@ class ViewController: UIViewController {
             }
         // MULTIPLE SHAPES EXPLODE (GESTURE : SHAKE)
         } else {
-            // FIXME : EXPANSION FROM TOP LEFT OF VIEW, RATHER THAN CENTRE OF CIRCLEÇ
+            // FIXME : EXPANSION FROM TOP LEFT OF VIEW, RATHER THAN CENTRE OF CIRCLE
             UIView.animate(withDuration: 0.7, animations: {
                 shape.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
             }) { _ in
